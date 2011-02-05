@@ -151,11 +151,22 @@ class App : public Ogre::FrameListener, public OIS::KeyListener, public OIS::Mou
    
    mRoot = new Ogre::Root("","");
    mRoot->addFrameListener(this);
+
   #ifdef _DEBUG
+    #if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+   // Change this to where ever you've squirrelled away your RenderSystem debug library
+   mRoot->loadPlugin("/usr/local/lib/OGRE/RenderSystem_GL_d");
+    #else
    mRoot->loadPlugin("RenderSystem_Direct3D9_d");
+    #endif
   #else
+    #if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+   // Change this to where ever you've squirrelled away your RenderSystem release library
+   mRoot->loadPlugin("/usr/local/lib/OGRE/RenderSystem_GL");
+    #else
    mRoot->loadPlugin("RenderSystem_Direct3D9");
-  #endif
+   #endif
+#endif
    
    mRoot->setRenderSystem(mRoot->getAvailableRenderers()[0]);
    
@@ -267,11 +278,12 @@ class App : public Ogre::FrameListener, public OIS::KeyListener, public OIS::Mou
   
 };
 
-void main()
+int main()
 {
  App* app  = new App();
  app->mRoot->startRendering();
  delete app;
+ return 0;
 }
 
 
