@@ -13,14 +13,12 @@ release_objdir = "obj/release"
 
 -- Global default build options
 buildoptions = {
-    "`pkg-config OGRE --cflags`" ..
-    "`pkg-config OIS --cflags`" 
+    "`pkg-config OGRE OIS --cflags`"
 }
 
 -- Global default link options
 linkoptions = {
-    "`pkg-config OGRE --libs`" ..
-    "`pkg-config OIS --libs`" 
+    "`pkg-config OGRE OIS --libs`"
 }
 
 -- Debug specific build options
